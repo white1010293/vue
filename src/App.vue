@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div class="app-container">
+    <!-- 路由占位符 -->
+    <keep-alive include="Home">
+      <router-view></router-view>
+    </keep-alive>
+
+    <!-- tabbar -->
+    <van-tabbar placeholder router z-index="999" v-model="active" active-color="#ee0a24" @change="onChange">
+      <van-tabbar-item replace to="/" icon="home-o">
+        主页
+      </van-tabbar-item>
+      <van-tabbar-item replace to='/user' icon="user-o">
+        我的
+      </van-tabbar-item>
+  </van-tabbar>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  data() {
+    return {
+      name: 10,
+      active: 0
+    }
+  },
+  methods: {
+    onChange(active) {
+      console.log(active)
+    }
+  },
+  mounted() {
+    // console.log(this.$route)
+    if (this.$route.path !== '/') {
+      this.$router.push('/')
     }
   }
 }
+</script>
+
+<style lang="scss" scoped>
+
 </style>
